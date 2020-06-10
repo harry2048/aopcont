@@ -11,6 +11,7 @@ public class TestController {
 
     @GetMapping("/test")
     public String testController(@RequestParam Map<String, Object> map){
+
         System.out.println(map);
         return "good";
     }
