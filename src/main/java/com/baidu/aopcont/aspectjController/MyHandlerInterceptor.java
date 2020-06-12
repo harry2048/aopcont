@@ -10,6 +10,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 /**
  * 实现springMVC框架中Handler的拦截
@@ -30,6 +32,16 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
         // 获取请求中非 json格式的数据，截取请求中？ 后的数据
         String queryString = request.getQueryString();
         System.out.println(queryString);
+        try {
+            String utf8Str = URLDecoder.decode(queryString,"utf-8");//将中文转码
+            System.out.println(utf8Str);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        LOGGER.info("这是前置~~~~~~~~-----");
+
+        // return true 继续向controller执行。return false 不向controller执行
         return true;
     }
     /*@Override
@@ -60,7 +72,7 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
         @Override
         public void addInterceptors(InterceptorRegistry registry) {
             // 注释掉这行，则拦截不生效
-            //registry.addInterceptor(new MyHandlerInterceptor());
+            registry.addInterceptor(new MyHandlerInterceptor());
         }
     }
 }
