@@ -28,6 +28,10 @@ public class AspectjController {
     @Pointcut("com.baidu.aopcont.aspectjController.AspectjController.controllerCut()")
     public void controllerCut2(){}
 
+    // 切  带有自定义注解的任意方法
+    //@Pointcut("@annotation(com.baidu.LogAnnotation)")
+    //public void logAnnotation() {}
+
 
     @Around("execution(* com.baidu.aopcont.controller.*.*(..))")
     public Object beforeRun(ProceedingJoinPoint joinPoint) throws Throwable {
